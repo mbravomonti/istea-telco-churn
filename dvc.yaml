@@ -18,3 +18,12 @@ stages:
     metrics:
       - metrics.json:
           cache: false
+
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+      - src/evaluate.py
+      - models/model.pkl
+      - data/processed/telco_churn_clean.csv
+    outs:
+      - eval_plots/

@@ -5,12 +5,12 @@ stages:
     deps:
     - path: data/raw/telco_churn.csv
       hash: md5
-      md5: 006527876bfe18c977d74eb4bc59443f
-      size: 873370
+      md5: ac40be7770ac4b2e22a43d2ec75a2bad
+      size: 883371
     - path: src/data_prep.py
       hash: md5
-      md5: 509c48210e92062698f8ee6c66b4e73a
-      size: 1875
+      md5: 7a001c6523f64060500efd7ebf3a5eb4
+      size: 1883
     outs:
     - path: data/processed/telco_churn_clean.csv
       hash: md5
@@ -25,8 +25,8 @@ stages:
       size: 883371
     - path: params.yaml
       hash: md5
-      md5: 80958ad0f5097547c88ca02ad9cc76a5
-      size: 100
+      md5: 92f6b236e42e5f875850c08adc29bd50
+      size: 99
     - path: src/train.py
       hash: md5
       md5: 8f537e5e44a7fbc01a0b4e51b637c462
@@ -34,9 +34,30 @@ stages:
     outs:
     - path: metrics.json
       hash: md5
-      md5: cf133e02746f6f97aab80eb02068c420
-      size: 133
+      md5: 99982daff0a4df680068afc8ab729363
+      size: 117
     - path: models/model.pkl
       hash: md5
-      md5: d7632f7e54a274bc0231849b33aedd86
+      md5: 95975a449bc2ebbc9858c70a8ec7b119
       size: 1387
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: data/processed/telco_churn_clean.csv
+      hash: md5
+      md5: ac40be7770ac4b2e22a43d2ec75a2bad
+      size: 883371
+    - path: models/model.pkl
+      hash: md5
+      md5: 95975a449bc2ebbc9858c70a8ec7b119
+      size: 1387
+    - path: src/evaluate.py
+      hash: md5
+      md5: 790ca61fbf66fc1a91b9a6ae5503aa40
+      size: 2577
+    outs:
+    - path: eval_plots/
+      hash: md5
+      md5: 4042f3e439dce59cad247b09e3f26cad.dir
+      size: 53005
+      nfiles: 2
