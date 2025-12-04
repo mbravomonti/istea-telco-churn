@@ -1,0 +1,42 @@
+schema: '2.0'
+stages:
+  data_prep:
+    cmd: python src/data_prep.py
+    deps:
+    - path: data/raw/telco_churn.csv
+      hash: md5
+      md5: 006527876bfe18c977d74eb4bc59443f
+      size: 873370
+    - path: src/data_prep.py
+      hash: md5
+      md5: 509c48210e92062698f8ee6c66b4e73a
+      size: 1875
+    outs:
+    - path: data/processed/telco_churn_clean.csv
+      hash: md5
+      md5: ac40be7770ac4b2e22a43d2ec75a2bad
+      size: 883371
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/processed/telco_churn_clean.csv
+      hash: md5
+      md5: ac40be7770ac4b2e22a43d2ec75a2bad
+      size: 883371
+    - path: params.yaml
+      hash: md5
+      md5: 80958ad0f5097547c88ca02ad9cc76a5
+      size: 100
+    - path: src/train.py
+      hash: md5
+      md5: 8f537e5e44a7fbc01a0b4e51b637c462
+      size: 2840
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: cf133e02746f6f97aab80eb02068c420
+      size: 133
+    - path: models/model.pkl
+      hash: md5
+      md5: d7632f7e54a274bc0231849b33aedd86
+      size: 1387
