@@ -12,6 +12,7 @@ from sklearn.preprocessing import LabelEncoder
 PROCESSED_DATA_PATH = os.path.join('data', 'processed', 'telco_churn_clean.csv')
 METRICS_PATH = 'metrics.json'
 MODEL_PATH = os.path.join('models', 'model.pkl')
+ENCODERS_PATH = os.path.join('models', 'encoders.pkl')
 PARAMS_PATH = 'params.yaml'
 
 def load_params():
@@ -36,8 +37,8 @@ def preprocess_for_training(df):
         le = LabelEncoder()
         df[column] = le.fit_transform(df[column])
         label_encoders[column] = le
-        
-    return df
+    
+    return df, label_encoders
 
 def train_model(df, params):
     X = df.drop(columns=['churn'])
@@ -74,7 +75,7 @@ if __name__ == "__main__":
         df = load_data()
         
         print("Preprocessing data...")
-        df_processed = preprocess_for_training(df)
+        df_processed, encoders = preprocess_for_training(df)
         
         print("Training model...")
         model, metrics = train_model(df_processed, params)
@@ -84,9 +85,11 @@ if __name__ == "__main__":
             json.dump(metrics, f, indent=4)
         print(metrics)
         
-        print("Saving model...")
+        print("Saving model and encoders...")
         joblib.dump(model, MODEL_PATH)
+        joblib.dump(encoders, ENCODERS_PATH)
         print(f"Model saved to {MODEL_PATH}")
+        print(f"Encoders saved to {ENCODERS_PATH}")
         
     except Exception as e:
         print(f"Error: {e}")

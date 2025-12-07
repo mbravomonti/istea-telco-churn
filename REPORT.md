@@ -20,20 +20,28 @@ Para futuras iteraciones, se recomienda probar modelos no lineales como Random F
 
 ## 3. Estrategia de Despliegue (Producción)
 
-Para llevar este modelo a un entorno productivo, proponemos la siguiente arquitectura:
+Se ha implementado una **API REST con FastAPI** en `src/app.py` para servir el modelo en producción.
 
-1.  **API REST con FastAPI**:
-    *   Crear un endpoint `/predict` que reciba los datos del cliente en formato JSON.
-    *   El servicio cargará el modelo `model.pkl` al inicio.
-    *   Se aplicará el mismo preprocesamiento (`src/data_prep.py` logic) antes de la predicción.
+### Características de la API:
+- **Framework**: FastAPI (Python).
+- **Endpoint**: `POST /predict`.
+- **Input**: JSON con los datos del cliente (validado con Pydantic).
+- **Output**: Predicción de churn (0/1) y probabilidad.
+- **Preprocesamiento**: Utiliza los mismos encoders (`encoders.pkl`) generados durante el entrenamiento para garantizar consistencia.
 
-2.  **Contenerización**:
+### Instrucciones de Ejecución:
+1. Instalar dependencias: `pip install -r requirements.txt`
+2. Ejecutar servidor: `python src/app.py`
+3. Probar con Swagger UI: Navegar a `http://localhost:8000/docs`
+
+### Arquitectura Propuesta para Escalamiento:
+1.  **Contenerización**:
     *   Empaquetar la API en una imagen Docker.
     *   `Dockerfile` incluirá `requirements.txt` y el código fuente.
 
-3.  **Orquestación**:
+2.  **Orquestación**:
     *   Desplegar el contenedor en un servicio como **Azure Container Apps** o **AWS ECS** para escalabilidad automática.
 
-4.  **Monitoreo**:
+3.  **Monitoreo**:
     *   Integrar herramientas como **Prometheus** o **Grafana** para monitorear la latencia y el throughput.
     *   Implementar detección de **Data Drift** comparando las distribuciones de entrada en producción vs. entrenamiento.
