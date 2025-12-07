@@ -30,7 +30,7 @@ def load_data():
 
 def evaluate_model(model, df):
     # Preprocess data (ensure consistency with training)
-    df_processed = preprocess_for_training(df)
+    df_processed, _ = preprocess_for_training(df)
     
     X = df_processed.drop(columns=['churn'])
     y = df_processed['churn']

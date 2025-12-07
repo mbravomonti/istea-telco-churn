@@ -6,3 +6,6 @@ dagshub
 mlflow
 matplotlib
 seaborn
+fastapi
+uvicorn
+pydantic
