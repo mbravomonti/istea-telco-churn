@@ -35,4 +35,4 @@ dvc repro
    ```
 
 ## Entrega Final
-Para ver el video de presentación y el reporte detallado, consulta [ENTREGA_FINAL.md](ENTREGA_FINAL.md).
+Para ver el video de presentación y el reporte detallado, consulta [ENTREGA_FINAL.md](ENTREGA_FINAL.md) y [REPORT.md](REPORT.md).
