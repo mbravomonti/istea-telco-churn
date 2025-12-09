@@ -6,7 +6,7 @@ Se realizaron múltiples experimentos variando el parámetro de regularización 
 
 | Experimento | C | Accuracy | Precision | Recall | F1 Score |
 |---|---|---|---|---|---|
-| Baseline (main) | 1.0 | 0.688 | 0.583 | 0.408 | 0.480 |
+| Baseline (main) | 1.0 | 0.688 | 0.583 | 0.404 | 0.477 |
 | Strong Reg (exp-strong-reg) | 0.1 | 0.687 | 0.584 | 0.392 | 0.469 |
 | Weak Reg (exp-weak-reg) | 10.0 | 0.688 | 0.583 | 0.408 | 0.480 |
 

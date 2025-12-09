@@ -21,7 +21,18 @@ Proyecto de MLOps para predecir la rotación de clientes (churn) en una empresa 
    ```
 
 ## Uso
+### Ejecución del Pipeline (DVC)
+Para reproducir todo el pipeline (preprocesamiento, entrenamiento y evaluación):
+```bash
+dvc pull
+dvc repro
+```
+
+### Ejecución Manual
 1. Preparación de datos:
    ```bash
    python src/data_prep.py
    ```
+
+## Entrega Final
+Para ver el video de presentación y el reporte detallado, consulta [ENTREGA_FINAL.md](ENTREGA_FINAL.md).
