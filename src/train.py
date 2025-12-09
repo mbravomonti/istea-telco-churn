@@ -3,6 +3,8 @@ import yaml
 import json
 import os
 import joblib
+import mlflow
+import dagshub
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
@@ -78,7 +80,24 @@ if __name__ == "__main__":
         df_processed, encoders = preprocess_for_training(df)
         
         print("Training model...")
-        model, metrics = train_model(df_processed, params)
+        
+        # Initialize DagsHub MLflow tracking
+        dagshub.init(repo_owner='matu1309', repo_name='istea-telco-churn', mlflow=True)
+        
+        with mlflow.start_run():
+            # Log parameters
+            mlflow.log_params(params['train'])
+            mlflow.log_params(params['train']['model_params'])
+            
+            model, metrics = train_model(df_processed, params)
+            
+            # Log metrics
+            mlflow.log_metrics(metrics)
+            
+            # Log model (commented out to avoid DagsHub internal error with artifact upload)
+            # mlflow.sklearn.log_model(model, "model")
+            
+            print("Run logged to MLflow on DagsHub")
         
         print("Saving metrics...")
         with open(METRICS_PATH, 'w') as f:
